@@ -7,8 +7,6 @@ class HomeLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: NewNotesScreen(),
-    );
+    return Scaffold(body: NewNotesScreen());
   }
 }
