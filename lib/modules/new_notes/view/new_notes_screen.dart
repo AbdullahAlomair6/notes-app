@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app/modules/new_notes/view/widget.dart';
 
+import '../../../custom-widget/widget/card_items.dart';
+
 class NewNotesScreen extends StatelessWidget {
   const NewNotesScreen({super.key});
 
@@ -8,10 +10,15 @@ class NewNotesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBarDesign(),
-      body:ListView.separated(
-          itemBuilder: (context,index)=> cardItems(),
-          separatorBuilder:(context,index)=>Container(),
-          itemCount: 10
+      body: ListView.separated(
+        itemBuilder:
+            (context, index) => CardItems(
+              text:
+                  "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page",
+              editOnPressed: () {},
+            ),
+        separatorBuilder: (context, index) => Container(),
+        itemCount: 10,
       ),
     );
   }
