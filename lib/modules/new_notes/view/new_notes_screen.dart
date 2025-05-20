@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/modules/new_notes/view/widget.dart';
 
+import '../../../custom-widget/widget/appBar.dart';
 import '../../../custom-widget/widget/card_items.dart';
 
 class NewNotesScreen extends StatelessWidget {
@@ -9,7 +9,7 @@ class NewNotesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarDesign(),
+      appBar: AppBarDesign(title: 'NOTES'),
       body: ListView.separated(
         itemBuilder:
             (context, index) => CardItems(
