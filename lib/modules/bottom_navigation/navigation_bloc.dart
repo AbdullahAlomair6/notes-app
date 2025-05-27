@@ -16,14 +16,11 @@ class NavigationBarCubit extends Cubit<NavigationStates> {
 
   void selectBottomNav(index) {
     currentIndex = index;
-    emit(ChangeBottomNavState());
+    emit(ChangeBottomNavState(currentIndex));
   }
 
   List<BottomNavigationBarItem> navItems = [
     BottomNavigationBarItem(icon: Icon(Icons.add), label: 'NEW'),
-    BottomNavigationBarItem(
-        icon: Icon(Icons.archive),
-        label: 'Archive',
-    ),
+    BottomNavigationBarItem(icon: Icon(Icons.archive), label: 'Archive'),
   ];
 }
