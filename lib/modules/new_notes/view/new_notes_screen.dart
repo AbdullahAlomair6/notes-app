@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../custom-widget/widget/app_bar_design.dart';
 import '../../../custom-widget/widget/card_items.dart';
+import '../../bottom_sheet/bloc/bottom_sheet_cubit.dart';
+import '../../bottom_sheet/bloc/bottom_sheet_state.dart';
 import '../../bottom_sheet/view/bottom_sheet_screen.dart';
 
 class NewNotesScreen extends StatelessWidget {
@@ -9,17 +12,28 @@ class NewNotesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _appBarDesign(context),
-      body: ListView.separated(
-        itemBuilder:
-            (context, index) => CardItems(
-              text:
-                  "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page",
-              editOnPressed: () {},
+    List<Map>? notesData;
+
+    return BlocProvider(
+      create: (context) => BottomSheetCubit(),
+      child: BlocBuilder<BottomSheetCubit, BottomSheetState>(
+        builder: (context, state) {
+          if (state is ReadNoteState) {
+            notesData = state.response;
+          }
+          return Scaffold(
+            appBar: _appBarDesign(context),
+            body: ListView.separated(
+              itemBuilder:
+                  (context, index) => CardItems(
+                    text: "${notesData![index]}",
+                    editOnPressed: () {},
+                  ),
+              separatorBuilder: (context, index) => Container(),
+              itemCount: notesData!.length,
             ),
-        separatorBuilder: (context, index) => Container(),
-        itemCount: 10,
+          );
+        },
       ),
     );
   }

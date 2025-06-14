@@ -16,7 +16,7 @@ class BottomSheetScreen extends StatelessWidget {
       child: BlocBuilder<BottomSheetCubit, BottomSheetState>(
         builder:
             (context, state) => Container(
-              height: 200,
+              height: 250,
               key: cubit.formKey,
               color: Colors.white,
               child: Padding(
@@ -24,7 +24,33 @@ class BottomSheetScreen extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    CustomEdittext(label: 'Note', hint: 'Write your note'),
+                    CustomEdittext(
+                      label: 'Note',
+                      hint: 'Write your note',
+                      controller: cubit.noteController
+                    ),
+                    SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.all(.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                        //  final note = cubit.noteController.text;
+                         //cubit.addNote(note);
+                         Navigator.pop(context);
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            Colors.blueGrey,
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'ADD',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
