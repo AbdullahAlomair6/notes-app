@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../custom-widget/widget/app_bar_design.dart';
+import '../../../custom-widget/widget/appBar.dart';
 import '../../../custom-widget/widget/card_items.dart';
-import '../../bottom_sheet/view/bottom_sheet_screen.dart';
 
 class NewNotesScreen extends StatelessWidget {
   const NewNotesScreen({super.key});
@@ -10,7 +9,7 @@ class NewNotesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _appBarDesign(context),
+      appBar: AppBarDesign(title: 'NOTES'),
       body: ListView.separated(
         itemBuilder:
             (context, index) => CardItems(
@@ -23,16 +22,4 @@ class NewNotesScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-AppBarDesign _appBarDesign(context) {
-  return AppBarDesign(
-    title: 'NOTES',
-    onPressedIcon: () {
-      showModalBottomSheet(
-        context: context,
-        builder: (context) => const BottomSheetScreen(),
-      );
-    },
-  );
 }
