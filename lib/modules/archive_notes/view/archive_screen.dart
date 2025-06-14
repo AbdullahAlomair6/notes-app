@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../custom-widget/widget/appBar.dart';
+
+import '../../../custom-widget/widget/app_bar_design.dart';
+
 import '../../../custom-widget/widget/card_items.dart';
 
 class ArchiveScreen extends StatelessWidget {
