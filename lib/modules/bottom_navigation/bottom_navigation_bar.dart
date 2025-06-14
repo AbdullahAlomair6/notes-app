@@ -9,8 +9,7 @@ class AppNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<NavigationBarCubit, NavigationStates>(
-      listener: (context, state) {},
+    return BlocBuilder<NavigationBarCubit, NavigationStates>(
       builder: (context, state) {
         final cubit = NavigationBarCubit.get(context);
         return BottomNavigationBar(

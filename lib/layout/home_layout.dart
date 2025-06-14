@@ -10,14 +10,17 @@ class HomeLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = NavigationBarCubit();
+    int currentScreen = 0;
     return BlocProvider(
       create: (context) => NavigationBarCubit(),
-      child: BlocConsumer<NavigationBarCubit, NavigationStates>(
-        listener: (context, state) {},
+      child: BlocBuilder<NavigationBarCubit, NavigationStates>(
         builder: (context, state) {
-          final cubit = NavigationBarCubit.get(context);
+          if (state is ChangeBottomNavState) {
+            currentScreen = state.currentIndex;
+          }
           return Scaffold(
-            body: cubit.selectScreen[cubit.currentIndex],
+            body: cubit.selectScreen[currentScreen],
             bottomNavigationBar: AppNavigationBar(),
           );
         },
