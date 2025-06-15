@@ -6,13 +6,14 @@ class CardItems extends StatelessWidget {
     super.key,
     required this.text,
     required this.editOnPressed,
-    this.fontSize = 20,
-    r,
+    this.fontSize = 25,
+    required this.deleteOnPressed,
   });
 
   final double fontSize;
   final String text;
   final void Function() editOnPressed;
+  final void Function() deleteOnPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class CardItems extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       maxLines: 3,
@@ -41,12 +42,18 @@ class CardItems extends StatelessWidget {
                       ),
                     ),
                     Spacer(),
-                    Container(
-                      alignment: Alignment.bottomRight,
-                      child: IconButton(
-                        onPressed: editOnPressed,
-                        icon: Icon(Icons.edit),
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                          onPressed: editOnPressed,
+                          icon: Icon(Icons.edit),
+                        ),
+                        IconButton(
+                          onPressed: deleteOnPressed,
+                          icon: Icon(Icons.delete),
+                        ),
+                      ],
                     ),
                   ],
                 ),
