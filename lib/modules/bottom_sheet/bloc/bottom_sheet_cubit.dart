@@ -11,9 +11,17 @@ class BottomSheetCubit extends Cubit<BottomSheetState> {
   var noteController = TextEditingController();
   DatabaseHelper notesDb = DatabaseHelper();
 
-  Future<List<Map>> readData() async {
-    List<Map> response = await notesDb.readData("SELECT * FROM notes");
-    emit(ReadNoteState(response));
-    return response;
+
+  insertData() async {
+    await notesDb.insertData('''
+        INSERT INTO notes(note)
+        VALUES ("${noteController.text}")
+        ''');
+    emit(UpdateNotes());
+  }
+
+  updateData(String text,Map<dynamic, dynamic> data)async{
+    await notesDb.updateData("UPDATE notes SET note = '$text' WHERE id = ${data['id']}");
+
   }
 }
