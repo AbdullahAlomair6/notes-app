@@ -63,10 +63,12 @@ class CustomEdittext extends StatelessWidget {
 
   InputDecoration defaultDecoration() {
     return InputDecoration(
+      contentPadding: EdgeInsets.all(50),
       border: OutlineInputBorder(),
       icon: Icon(Icons.short_text_sharp),
       hintText: hint,
-      label: Text(label),
+      hintStyle: TextStyle(fontSize: 25),
+      label: Text(label, style: TextStyle(fontSize: 30)),
     );
   }
 
