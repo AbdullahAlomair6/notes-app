@@ -17,18 +17,17 @@ class DatabaseHelper {
   initDb() async {
     String databasePath = await getDatabasesPath();
     String path = join(databasePath, 'notes.db');
-    Database db = await openDatabase(path, onCreate: _onCreate);
+    Database db = await openDatabase(path, onCreate: _onCreate, version: 1);
     return db;
   }
 
-  _onCreate(Database db, int version) async {
+  _onCreate(Database db, int? version) async {
     await db.execute('''
-    CRETE TABLE "notes" (
+    CREATE TABLE "notes" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "note" TEXT
     )
     ''');
-    print('crete database correct =+++++++++++');
   }
 
   readData(sql) async {
