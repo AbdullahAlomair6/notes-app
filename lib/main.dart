@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app/core/app_routes.dart';
 
-import 'layout/home_layout.dart';
-
 void main() {
   runApp(const MyApp());
 }
