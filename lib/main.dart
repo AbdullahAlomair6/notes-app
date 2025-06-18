@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/core/app_routes.dart';
 
 import 'layout/home_layout.dart';
 
@@ -11,6 +12,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: HomeLayout());
+    final router = goRouter();
+    return MaterialApp.router(routerConfig: router);
   }
 }
