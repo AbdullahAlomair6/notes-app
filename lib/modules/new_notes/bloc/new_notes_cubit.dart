@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../helper/database_helper/database_helper.dart';
@@ -9,18 +8,17 @@ class NewNotesCubit extends Cubit<NewNotesState> {
 
   DatabaseHelper notesDb = DatabaseHelper();
 
+  List<Map> getListData = [];
+
   readData() async {
-    List<Map> response = await notesDb.readData("SELECT * FROM notes");
-    emit(ReadNoteState(response));
+    emit(ReadNoteState());
+    getListData = await notesDb.readData("SELECT * FROM notes");
+    //print(getListData);
+    emit(ReadNoteStateSuccess());
   }
 
   deleteData(Map<dynamic, dynamic> data) async {
     await notesDb.deleteData("DELETE FROM notes WHERE id = ${data['id']}");
     readData();
   }
-
-  // updateData(String text,Map<dynamic, dynamic> data)async{
-  //   await notesDb.updateData("UPDATE notes SET note = '$text' WHERE id = ${data['id']}");
-  //
-  // }
 }

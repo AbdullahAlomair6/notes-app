@@ -12,14 +12,11 @@ class NewNotesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Map> notesData = [];
     return BlocProvider(
       create: (context) => NewNotesCubit()..readData(),
       child: BlocBuilder<NewNotesCubit, NewNotesState>(
         builder: (context, state) {
-          if (state is ReadNoteState) {
-            notesData = state.response;
-          }
+          final notesData = context.watch<NewNotesCubit>().getListData;
           return Scaffold(
             appBar: _appBarDesign(context),
             body:
