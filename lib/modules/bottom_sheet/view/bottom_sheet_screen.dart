@@ -37,7 +37,7 @@ class BottomSheetScreen extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
                         if (note != null) {
-                          cubit.updateData(cubit.noteController.text, note!);
+                          cubit.updateData(note!);
                         } else {
                           cubit.insertData();
                         }

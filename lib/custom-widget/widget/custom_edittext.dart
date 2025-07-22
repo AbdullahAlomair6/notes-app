@@ -21,20 +21,27 @@ class CustomEdittext extends StatelessWidget {
     this.style,
     this.validator,
     this.onTap,
-    this.controller,
+    required this.controller,
     this.onChanged,
     this.onFieldSubmitted,
-    required this.label,
+    this.isNote = false,
+    this.label,
     required this.hint,
+    this.fontLabelSize,
+    this.fontHintSize,
+    this.filled = true,
   });
 
-  final String label;
+  final String? label;
   final String hint;
   final int minLines;
   final int maxLines;
   final TextFormFieldType type;
   final TextStyle? style;
-  final TextEditingController? controller;
+  final TextEditingController controller;
+  final bool isNote, filled;
+  final double? fontLabelSize;
+  final double? fontHintSize;
 
   final String? Function(String? value)? validator;
   final GestureTapCallback? onTap;
@@ -63,12 +70,16 @@ class CustomEdittext extends StatelessWidget {
 
   InputDecoration defaultDecoration() {
     return InputDecoration(
-      contentPadding: EdgeInsets.all(50),
-      border: OutlineInputBorder(),
-      icon: Icon(Icons.short_text_sharp),
+      contentPadding: isNote ? EdgeInsets.all(50) : null,
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
       hintText: hint,
-      hintStyle: TextStyle(fontSize: 25),
-      label: Text(label, style: TextStyle(fontSize: 30)),
+      hintStyle: TextStyle(fontSize: fontHintSize),
+      label:
+          label != null
+              ? Text(label!, style: TextStyle(fontSize: fontLabelSize))
+              : null,
+      filled: filled,
+      fillColor: Colors.grey[100],
     );
   }
 

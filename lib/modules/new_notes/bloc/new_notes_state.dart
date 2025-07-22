@@ -1,15 +1,7 @@
-abstract class NewNotesState{}
+abstract class NewNotesState {}
 
 class InitialState extends NewNotesState {}
 
-class ReadNoteState extends NewNotesState {
-  List<Map> response;
+class ReadNoteState extends NewNotesState {}
 
-  ReadNoteState(this.response);
-}
-
-class InsertNoteState extends NewNotesState {}
-
-class UpdateNoteState extends NewNotesState {}
-
-class DeleteNoteState extends NewNotesState {}
+class ReadNoteStateSuccess extends NewNotesState{}
