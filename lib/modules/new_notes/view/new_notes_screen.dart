@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:notes_app/modules/new_notes/bloc/new_notes_state.dart';
 
 import '../../../custom-widget/widget/app_bar_design.dart';
@@ -59,6 +61,11 @@ AppBarDesign _appBarDesign(context) {
         context: context,
         builder: (context) => const BottomSheetScreen(),
       );
+    },
+    exitIconShow: true,
+    onPressedIconExit: ()async{
+      await FirebaseAuth.instance.signOut();
+      GoRouter.of(context).pushReplacementNamed('loginScreen');
     },
   );
 }

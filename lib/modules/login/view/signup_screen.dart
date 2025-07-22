@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:notes_app/custom-widget/widget/custom_button.dart';
@@ -95,7 +96,23 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget _button() {
     return Column(
       children: [
-        CustomButton(text: 'SignUp', onPressed: () {}),
+        CustomButton(text: 'SignUp', onPressed: () async {
+          try {
+            final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+              email: emailController.text,
+              password: passwordController.text,
+            );
+            GoRouter.of(context).pushReplacementNamed('homeLayout');
+          } on FirebaseAuthException catch (e) {
+            if (e.code == 'weak-password') {
+              print('The password provided is too weak.');
+            } else if (e.code == 'email-already-in-use') {
+              print('The account already exists for that email.');
+            }
+          } catch (e) {
+            print(e);
+          }
+        }),
         SizedBox(height: 30),
       ],
     );
