@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    final router = goRouter();
-    return MaterialApp.router(routerConfig: router);
+    final router = goRouter;
+    return MaterialApp.router(routerConfig: router());
   }
 }

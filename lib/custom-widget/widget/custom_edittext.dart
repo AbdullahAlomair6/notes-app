@@ -29,17 +29,19 @@ class CustomEdittext extends StatelessWidget {
     required this.hint,
     this.fontLabelSize,
     this.fontHintSize,
-    this.filled = true,
+    this.filled = true,  this.obscureText = false, this.errorText,
   });
 
   final String? label;
   final String hint;
+  final String? errorText;
   final int minLines;
   final int maxLines;
   final TextFormFieldType type;
   final TextStyle? style;
   final TextEditingController controller;
   final bool isNote, filled;
+  final bool obscureText;
   final double? fontLabelSize;
   final double? fontHintSize;
 
@@ -55,6 +57,8 @@ class CustomEdittext extends StatelessWidget {
 
   Widget buildTextField() {
     return TextFormField(
+
+      obscureText : obscureText,
       maxLines: maxLines,
       minLines: minLines,
       decoration: defaultDecoration(),
@@ -80,6 +84,7 @@ class CustomEdittext extends StatelessWidget {
               : null,
       filled: filled,
       fillColor: Colors.grey[100],
+      errorText: errorText,
     );
   }
 

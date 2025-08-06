@@ -17,13 +17,21 @@ class AppBarDesign extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      actions: [IconButton(onPressed: onPressedIcon, icon: Icon(Icons.add))],
-      leading: exitIconShow ? IconButton(
-        onPressed: onPressedIconExit,
-        icon: Icon(Icons.exit_to_app_rounded),
-      ) : null,
+      actions: [
+        IconButton(
+          onPressed: onPressedIcon,
+          icon: Icon(Icons.add, color: Colors.white),
+        ),
+      ],
+      leading:
+          exitIconShow
+              ? IconButton(
+                onPressed: onPressedIconExit,
+                icon: Icon(Icons.exit_to_app_rounded, color: Colors.white),
+              )
+              : null,
       centerTitle: false,
-      backgroundColor: Colors.blueGrey,
+      backgroundColor: Colors.orangeAccent,
       elevation: 2,
       title: Text(
         title,

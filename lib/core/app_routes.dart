@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:notes_app/modules/login/view/login_screen.dart';
 import 'package:notes_app/modules/login/view/signup_screen.dart';
@@ -8,7 +9,7 @@ enum AppRouter { homeLayout, loginScreen, signupScreen }
 
 GoRouter goRouter() {
   return GoRouter(
-    initialLocation: '/homeLayout',
+    initialLocation: '/signupScreen',
     routes: <RouteBase>[
       GoRoute(
         path: "/homeLayout",

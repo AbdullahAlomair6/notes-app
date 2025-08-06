@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../helper/database_helper/database_helper.dart';
 import 'new_notes_state.dart';
@@ -10,21 +9,18 @@ class NewNotesCubit extends Cubit<NewNotesState> {
 
   DatabaseHelper notesDb = DatabaseHelper();
 
-  List<Map> getListData = [];
-
-  readData() async {
+  Future<void> readData() async {
     emit(ReadNoteState());
-    getListData = await notesDb.readData("SELECT * FROM notes");
-    //print(getListData);
-    emit(ReadNoteStateSuccess());
+    List<Map> getListData = await notesDb.readData();
+    emit(ReadNoteStateSuccess(getListData));
   }
 
   deleteData(Map<dynamic, dynamic> data) async {
-    await notesDb.deleteData("DELETE FROM notes WHERE id = ${data['id']}");
+    await notesDb.deleteData(data);
     readData();
   }
 
-  void signOut() async{
+  Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
   }
 }

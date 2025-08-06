@@ -1,7 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:notes_app/core/app_routes.dart';
 import 'package:notes_app/modules/new_notes/bloc/new_notes_state.dart';
 
 import '../../../custom-widget/widget/app_bar_design.dart';
@@ -14,40 +14,39 @@ class NewNotesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => NewNotesCubit()..readData(),
-      child: BlocBuilder<NewNotesCubit, NewNotesState>(
-        builder: (context, state) {
-          final notesData = context.watch<NewNotesCubit>().getListData;
-          return Scaffold(
-            appBar: _appBarDesign(context),
-            body:
-                notesData.isEmpty
-                    ? Center(child: CircularProgressIndicator())
-                    : ListView.separated(
-                      itemBuilder:
-                          (context, index) => CardItems(
-                            text: "${notesData[index]['note']}",
-                            editOnPressed: () {
-                              showModalBottomSheet(
-                                context: context,
-                                builder:
-                                    (context) => BottomSheetScreen(
-                                      note: notesData[index],
-                                    ),
-                              );
-                            },
-                            deleteOnPressed: () {
-                              context.read<NewNotesCubit>().deleteData(
-                                notesData[index],
-                              );
-                            },
-                          ),
-                      separatorBuilder: (context, index) => Container(),
-                      itemCount: notesData.length,
+    return Scaffold(
+      appBar: _appBarDesign(context),
+      body: BlocProvider(
+        create: (BuildContext context) => NewNotesCubit()..readData(),
+        child: BlocBuilder<NewNotesCubit, NewNotesState>(
+          builder: (context, state) {
+            if (state is ReadNoteStateSuccess) {
+              List<Map> notesData = state.response;
+              return ListView.separated(
+                itemBuilder:
+                    (context, index) => CardItems(
+                      text: "${notesData[index]['note']}",
+                      editOnPressed: () {
+                        showModalBottomSheet(
+                          context: context,
+                          builder:
+                              (context) =>
+                                  BottomSheetScreen(note: notesData[index]),
+                        );
+                      },
+                      deleteOnPressed: () {
+                        context.read<NewNotesCubit>().deleteData(
+                          notesData[index],
+                        );
+                      },
                     ),
-          );
-        },
+                separatorBuilder: (context, index) => Container(),
+                itemCount: notesData.length,
+              );
+            }
+            return const Center(child: CircularProgressIndicator());
+          },
+        ),
       ),
     );
   }
@@ -63,9 +62,9 @@ AppBarDesign _appBarDesign(context) {
       );
     },
     exitIconShow: true,
-    onPressedIconExit: ()async{
-      await FirebaseAuth.instance.signOut();
-      GoRouter.of(context).pushReplacementNamed('loginScreen');
+    onPressedIconExit: () async {
+      NewNotesCubit().signOut();
+      GoRouter.of(context).pushReplacementNamed(AppRouter.loginScreen.name);
     },
   );
 }

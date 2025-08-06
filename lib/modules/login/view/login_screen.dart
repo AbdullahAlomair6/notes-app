@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:notes_app/core/app_routes.dart';
 import 'package:notes_app/custom-widget/widget/custom_button.dart';
 
 import '../../../custom-widget/widget/custom_edittext.dart';
+import '../bloc/login_cubit.dart';
+import '../bloc/login_state.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -13,29 +15,44 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  late final LoginCubit cubit;
+
+  @override
+  void initState() {
+    cubit = LoginCubit();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: ListView(
-          children: [
-            _mainScreen(),
-            SizedBox(height: 30),
-            _button(),
-            SizedBox(height: 20),
-            _accountRegister(),
-          ],
+      body: BlocProvider(
+        create: (BuildContext context) => LoginCubit(),
+        child: BlocBuilder<LoginCubit, LoginState>(
+          bloc: cubit,
+          builder: (BuildContext context, state) {
+            return Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: ListView(
+                children: [
+                  _mainScreen(context),
+                  SizedBox(height: 30),
+                  _button(),
+                  SizedBox(height: 20),
+                  _accountRegister(),
+                ],
+              ),
+            );
+          },
         ),
       ),
     );
   }
 
-  Widget _mainScreen() {
+  Widget _mainScreen(context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -67,6 +84,13 @@ class _LoginScreenState extends State<LoginScreen> {
           hint: 'Enter your password',
           type: TextFormFieldType.password,
           controller: passwordController,
+          obscureText: false,
+          //errorText: errorText,
+          onChanged: (value) {
+            // setState(() {
+            //   errorText = value.isEmpty ? 'add password' : null;
+            // });
+          },
         ),
         SizedBox(height: 20),
         Container(
@@ -78,9 +102,15 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _button() {
+    final cubit = LoginCubit();
     return Column(
       children: [
-        CustomButton(text: 'Login', onPressed: () {}),
+        CustomButton(
+          text: 'Login',
+          onPressed: () async {
+            await cubit.loginUser(context, emailController, passwordController);
+          },
+        ),
         SizedBox(height: 30),
         CustomButton(
           text: 'Login with Google',

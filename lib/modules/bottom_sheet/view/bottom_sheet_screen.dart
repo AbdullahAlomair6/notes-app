@@ -31,7 +31,8 @@ class BottomSheetScreen extends StatelessWidget {
                     hint: 'Write your note',
                     controller: cubit.noteController,
                   ),
-                  SizedBox(height: 10),
+                  //SizedBox(height: 10),
+                  Spacer(),
                   Padding(
                     padding: const EdgeInsets.all(.0),
                     child: ElevatedButton(
@@ -45,7 +46,7 @@ class BottomSheetScreen extends StatelessWidget {
                       },
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(
-                          Colors.blueGrey,
+                          Colors.orangeAccent,
                         ),
                       ),
                       child: Center(
@@ -56,6 +57,7 @@ class BottomSheetScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  SizedBox(height: 20,)
                 ],
               ),
             ),

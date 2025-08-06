@@ -11,21 +11,14 @@ class BottomSheetCubit extends Cubit<BottomSheetState> {
   final formKey = GlobalKey<FormState>();
   var noteController = TextEditingController();
   DatabaseHelper notesDb = DatabaseHelper();
-  NewNotesCubit newCubit = NewNotesCubit();
 
   insertData() async {
-    await notesDb.insertData('''
-        INSERT INTO notes(note)
-        VALUES ("${noteController.text}")
-        ''');
-    newCubit.readData();
+    await notesDb.insertData(noteController.text);
     emit(UpdateNotes());
   }
 
   updateData(Map<dynamic, dynamic> data) async {
-    await notesDb.updateData(
-      "UPDATE notes SET note = '${noteController.text}' WHERE id = ${data['id']}",
-    );
+    await notesDb.updateData(noteController.text, data);
     emit(UpdateNotes());
   }
 }

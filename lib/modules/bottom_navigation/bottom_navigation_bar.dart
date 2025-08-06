@@ -18,8 +18,9 @@ class AppNavigationBar extends StatelessWidget {
           onTap: (index) {
             cubit.selectBottomNav(index);
           },
-          backgroundColor: Colors.blueGrey[50],
-          selectedItemColor: Colors.blueGrey,
+          backgroundColor: Colors.orangeAccent,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.white,
           elevation: 0.0,
           showUnselectedLabels: false,
         );

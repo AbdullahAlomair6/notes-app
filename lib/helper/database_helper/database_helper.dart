@@ -30,27 +30,34 @@ class DatabaseHelper {
     ''');
   }
 
-  readData(sql) async {
+  readData() async {
     Database? notesDb = await db;
-    List<Map> response = await notesDb!.rawQuery(sql);
+    List<Map> response = await notesDb!.rawQuery("SELECT * FROM notes");
     return response;
   }
 
-  insertData(sql) async {
+  insertData(textData) async {
     Database? notesDb = await db;
-    int response = await notesDb!.rawInsert(sql);
+    int response = await notesDb!.rawInsert('''
+        INSERT INTO notes(note)
+        VALUES ("$textData")
+        ''');
     return response;
   }
 
-  updateData(sql) async {
+  updateData(textData, Map<dynamic, dynamic> list) async {
     Database? notesDb = await db;
-    int response = await notesDb!.rawUpdate(sql);
+    int response = await notesDb!.rawUpdate(
+      "UPDATE notes SET note = '$textData' WHERE id = ${list['id']}",
+    );
     return response;
   }
 
-  deleteData(sql) async {
+  deleteData(Map<dynamic, dynamic> list) async {
     Database? notesDb = await db;
-    int response = await notesDb!.rawDelete(sql);
+    int response = await notesDb!.rawDelete(
+      "DELETE FROM notes WHERE id = ${list['id']}",
+    );
     return response;
   }
 }
