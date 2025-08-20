@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:notes_app/modules/login/view/login_screen.dart';
 import 'package:notes_app/modules/login/view/signup_screen.dart';
@@ -29,7 +28,9 @@ GoRouter goRouter() {
     ],
     redirect: (context, state) {
       final user = FirebaseAuth.instance.currentUser;
-      final loggingIn = state.matchedLocation == '/loginScreen' || state.matchedLocation == '/signupScreen';
+      final loggingIn =
+          state.matchedLocation == '/loginScreen' ||
+          state.matchedLocation == '/signupScreen';
 
       if (user == null && !loggingIn) {
         return '/loginScreen';

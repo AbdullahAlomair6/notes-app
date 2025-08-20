@@ -14,15 +14,16 @@ class NewNotesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _appBarDesign(context),
-      body: BlocProvider(
-        create: (BuildContext context) => NewNotesCubit()..readData(),
-        child: BlocBuilder<NewNotesCubit, NewNotesState>(
-          builder: (context, state) {
-            if (state is ReadNoteStateSuccess) {
-              List<Map> notesData = state.response;
-              return ListView.separated(
+    return BlocProvider(
+      create: (BuildContext context) => NewNotesCubit()..readData(),
+      child: BlocBuilder<NewNotesCubit, NewNotesState>(
+        builder: (context, state) {
+          if (state is ReadNoteStateSuccess) {
+            var cubit = NewNotesCubit.get(context);
+            List<Map> notesData = state.response;
+            return Scaffold(
+              appBar: _appBarDesign(context, cubit),
+              body: ListView.separated(
                 itemBuilder:
                     (context, index) => CardItems(
                       text: "${notesData[index]['note']}",
@@ -31,7 +32,7 @@ class NewNotesScreen extends StatelessWidget {
                           context: context,
                           builder:
                               (context) =>
-                                  BottomSheetScreen(note: notesData[index]),
+                                  BottomSheetScreen(note: notesData[index], cubit: cubit,),
                         );
                       },
                       deleteOnPressed: () {
@@ -42,27 +43,27 @@ class NewNotesScreen extends StatelessWidget {
                     ),
                 separatorBuilder: (context, index) => Container(),
                 itemCount: notesData.length,
-              );
-            }
-            return const Center(child: CircularProgressIndicator());
-          },
-        ),
+              ),
+            );
+          }
+          return const Center(child: CircularProgressIndicator());
+        },
       ),
     );
   }
 }
 
-AppBarDesign _appBarDesign(context) {
+AppBarDesign _appBarDesign(context,cubit1) {
   return AppBarDesign(
     title: 'NOTES',
     onPressedIcon: () {
-      showModalBottomSheet(
-        context: context,
-        builder: (context) => const BottomSheetScreen(),
-      );
+      // showModalBottomSheet(
+      //   context: context,
+      //   builder: (context) => const BottomSheetScreen(),
+      // );
     },
     exitIconShow: true,
-    onPressedIconExit: () async {
+    onPressedIconExit: () {
       NewNotesCubit().signOut();
       GoRouter.of(context).pushReplacementNamed(AppRouter.loginScreen.name);
     },

@@ -32,10 +32,10 @@ class ArchiveScreen extends StatelessWidget {
 AppBarDesign _appBarDesign(context) {
   return AppBarDesign(
     title: 'NOTES',
-    onPressedIcon: () {
-      showModalBottomSheet(
-        context: context,
-        builder: (context) => const BottomSheetScreen(),
-      );
-    },
+    // onPressedIcon: () {
+    //   showModalBottomSheet(
+    //     context: context,
+    //     builder: (context) => const BottomSheetScreen(),
+    //   );
+   // },
   );}
