@@ -1,12 +1,24 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes_app/core/app_routes.dart';
+
+import 'modules/add_notes/bloc/add_note_cubit.dart';
+import 'modules/home/bloc/home_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => HomeCubit()),
+        BlocProvider(create: (_) => AddNoteCubit()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {

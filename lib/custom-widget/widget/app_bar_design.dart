@@ -20,22 +20,21 @@ class AppBarDesign extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           onPressed: onPressedIcon,
-          icon: Icon(Icons.add, color: Colors.white),
+          icon: Icon(Icons.add, color: Colors.black),
         ),
       ],
       leading:
           exitIconShow
               ? IconButton(
                 onPressed: onPressedIconExit,
-                icon: Icon(Icons.exit_to_app_rounded, color: Colors.white),
+                icon: Icon(Icons.exit_to_app_rounded, color: Colors.black),
               )
               : null,
-      centerTitle: false,
-      backgroundColor: Colors.orangeAccent,
-      elevation: 2,
+      centerTitle: true,
+      backgroundColor: Colors.white,
       title: Text(
         title,
-        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
       ),
       automaticallyImplyLeading: false,
     );

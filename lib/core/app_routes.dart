@@ -1,19 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
+import 'package:notes_app/modules/home/home_screen.dart';
 import 'package:notes_app/modules/login/view/login_screen.dart';
 import 'package:notes_app/modules/login/view/signup_screen.dart';
-import '../layout/home_layout.dart';
 
-enum AppRouter { homeLayout, loginScreen, signupScreen }
+enum AppRouter { homeScreen, loginScreen, signupScreen }
 
 GoRouter goRouter() {
   return GoRouter(
     initialLocation: '/loginScreen',
     routes: <RouteBase>[
       GoRoute(
-        path: "/homeLayout",
-        name: AppRouter.homeLayout.name,
-        builder: (context, state) => const HomeLayout(),
+        path: "/homeScreen",
+        name: AppRouter.homeScreen.name,
+        builder: (context, state) => const HomeScreen(),
       ),
       GoRoute(
         path: "/loginScreen",
@@ -35,7 +35,7 @@ GoRouter goRouter() {
       if (user == null && !loggingIn) {
         return '/loginScreen';
       } else if (user != null && loggingIn) {
-        return '/homeLayout';
+        return '/homeScreen';
       }
       return null;
     },

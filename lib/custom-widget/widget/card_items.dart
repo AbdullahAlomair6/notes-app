@@ -24,7 +24,7 @@ class CardItems extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.orangeAccent[100],
+                color: Colors.amber[100],
                 borderRadius: BorderRadius.circular(10),
               ),
               height: 151,

@@ -8,14 +8,14 @@ import '../bloc/bottom_sheet_cubit.dart';
 import '../bloc/bottom_sheet_state.dart';
 
 class BottomSheetScreen extends StatelessWidget {
-  const BottomSheetScreen({super.key, this.note, required this.cubit});
+  const BottomSheetScreen({super.key, this.note});
 
   final Map? note;
-  final NewNotesCubit cubit;
+  //final NewNotesCubit cubit;
 
   @override
   Widget build(BuildContext context) {
-  //  var cubit =  context.read<NewNotesCubit>();
+    var cubit =  context.read<NewNotesCubit>();
         return Container(
           height: 250,
           key: cubit.formKey,

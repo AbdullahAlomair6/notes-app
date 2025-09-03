@@ -32,7 +32,7 @@ class NewNotesScreen extends StatelessWidget {
                           context: context,
                           builder:
                               (context) =>
-                                  BottomSheetScreen(note: notesData[index], cubit: cubit,),
+                                  BottomSheetScreen(note: notesData[index]),
                         );
                       },
                       deleteOnPressed: () {
