@@ -13,7 +13,7 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => HomeCubit()),
+        BlocProvider(create: (_) => HomeCubit()..getNoteData()),
         BlocProvider(create: (_) => AddNoteCubit()),
       ],
       child: MyApp(),

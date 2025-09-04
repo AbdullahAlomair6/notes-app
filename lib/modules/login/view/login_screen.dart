@@ -85,12 +85,6 @@ class _LoginScreenState extends State<LoginScreen> {
           type: TextFormFieldType.password,
           controller: passwordController,
           obscureText: false,
-          //errorText: errorText,
-          onChanged: (value) {
-            // setState(() {
-            //   errorText = value.isEmpty ? 'add password' : null;
-            // });
-          },
         ),
         SizedBox(height: 20),
         Container(
@@ -115,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
         CustomButton(
           text: 'Login with Google',
           onPressed: () {},
-          color: Colors.red,
+          backgroundColor: Colors.red,
         ),
       ],
     );

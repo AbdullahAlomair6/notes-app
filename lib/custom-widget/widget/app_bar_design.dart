@@ -6,13 +6,13 @@ class AppBarDesign extends StatelessWidget implements PreferredSizeWidget {
     required this.title,
     this.onPressedIcon,
     this.onPressedIconExit,
-    this.exitIconShow = false,
+    this.exitIconShow,
   });
 
   final String title;
   final Function()? onPressedIcon;
   final Function()? onPressedIconExit;
-  final bool exitIconShow;
+  final Widget? exitIconShow;
 
   @override
   Widget build(BuildContext context) {
@@ -23,20 +23,13 @@ class AppBarDesign extends StatelessWidget implements PreferredSizeWidget {
           icon: Icon(Icons.add, color: Colors.black),
         ),
       ],
-      leading:
-          exitIconShow
-              ? IconButton(
-                onPressed: onPressedIconExit,
-                icon: Icon(Icons.exit_to_app_rounded, color: Colors.black),
-              )
-              : null,
+      leading: exitIconShow,
       centerTitle: true,
       backgroundColor: Colors.white,
       title: Text(
         title,
         style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
       ),
-      automaticallyImplyLeading: false,
     );
   }
 

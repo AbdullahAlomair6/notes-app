@@ -15,27 +15,30 @@ enum TextFormFieldType {
 class CustomEdittext extends StatelessWidget {
   const CustomEdittext({
     super.key,
-    this.minLines = 1,
-    this.maxLines = 1,
+    required this.hint,
+    required this.controller,
+    this.minLines,
+    this.maxLines = 10,
     this.type = TextFormFieldType.text,
     this.style,
     this.validator,
     this.onTap,
-    required this.controller,
     this.onChanged,
     this.onFieldSubmitted,
     this.isNote = false,
     this.label,
-    required this.hint,
     this.fontLabelSize,
     this.fontHintSize,
-    this.filled = true,  this.obscureText = false, this.errorText,
+    this.filled = true,
+    this.obscureText = false,
+    this.errorText,
+    this.cursorColor = Colors.black,
   });
 
-  final String? label;
+  final Widget? label;
   final String hint;
   final String? errorText;
-  final int minLines;
+  final int? minLines;
   final int maxLines;
   final TextFormFieldType type;
   final TextStyle? style;
@@ -44,6 +47,7 @@ class CustomEdittext extends StatelessWidget {
   final bool obscureText;
   final double? fontLabelSize;
   final double? fontHintSize;
+  final Color cursorColor;
 
   final String? Function(String? value)? validator;
   final GestureTapCallback? onTap;
@@ -57,8 +61,7 @@ class CustomEdittext extends StatelessWidget {
 
   Widget buildTextField() {
     return TextFormField(
-
-      obscureText : obscureText,
+      obscureText: obscureText,
       maxLines: maxLines,
       minLines: minLines,
       decoration: defaultDecoration(),
@@ -69,21 +72,21 @@ class CustomEdittext extends StatelessWidget {
       controller: controller,
       onChanged: onChanged,
       onFieldSubmitted: onFieldSubmitted,
+      cursorColor: Colors.black,
     );
   }
 
   InputDecoration defaultDecoration() {
     return InputDecoration(
-      contentPadding: isNote ? EdgeInsets.all(50) : null,
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(30),
+        borderSide: BorderSide.none,
+      ),
       hintText: hint,
       hintStyle: TextStyle(fontSize: fontHintSize),
-      label:
-          label != null
-              ? Text(label!, style: TextStyle(fontSize: fontLabelSize))
-              : null,
+      label: label,
       filled: filled,
-      fillColor: Colors.grey[100],
+      fillColor: Colors.amber[100],
       errorText: errorText,
     );
   }

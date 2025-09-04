@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
-import 'package:notes_app/modules/home/home_screen.dart';
+import 'package:notes_app/modules/home/view/home_screen.dart';
 import 'package:notes_app/modules/login/view/login_screen.dart';
 import 'package:notes_app/modules/login/view/signup_screen.dart';
 

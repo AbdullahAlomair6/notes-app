@@ -25,10 +25,17 @@ class AddNoteCubit extends Cubit<AddNoteState> {
     return null;
   }
 
-  void checkOnPressed(context) {
+  bool checkOnPressed() {
     if (key.currentState?.validate() ?? false) {
       insertData();
-      Navigator.pop(context);
+      noteController.clear();
+      return true;
     }
+    return false;
   }
+
+  // updateData(Map<dynamic, dynamic> data) async {
+  //   await notesDb.updateData(noteController.text, data);
+  //   emit(UpdateNotes());
+  // }
 }
