@@ -1,16 +1,50 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes_app/core/app_routes.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'modules/add_notes/bloc/add_note_cubit.dart';
+import 'modules/home/bloc/home_cubit.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => HomeCubit()..getNoteData()),
+        BlocProvider(create: (_) => AddNoteCubit()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == null) {
+        print('========================User is currently signed out!');
+      } else {
+        print('========================User is signed in!');
+      }
+    });
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final router = goRouter();
-    return MaterialApp.router(routerConfig: router);
+    final router = goRouter;
+    return MaterialApp.router(routerConfig: router());
   }
 }

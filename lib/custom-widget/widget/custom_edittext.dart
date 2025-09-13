@@ -15,26 +15,39 @@ enum TextFormFieldType {
 class CustomEdittext extends StatelessWidget {
   const CustomEdittext({
     super.key,
-    this.minLines = 1,
-    this.maxLines = 1,
+    required this.hint,
+    required this.controller,
+    this.minLines,
+    this.maxLines = 10,
     this.type = TextFormFieldType.text,
     this.style,
     this.validator,
     this.onTap,
-    this.controller,
     this.onChanged,
     this.onFieldSubmitted,
-    required this.label,
-    required this.hint,
+    this.isNote = false,
+    this.label,
+    this.fontLabelSize,
+    this.fontHintSize,
+    this.filled = true,
+    this.obscureText = false,
+    this.errorText,
+    this.cursorColor = Colors.black,
   });
 
-  final String label;
+  final Widget? label;
   final String hint;
-  final int minLines;
+  final String? errorText;
+  final int? minLines;
   final int maxLines;
   final TextFormFieldType type;
   final TextStyle? style;
-  final TextEditingController? controller;
+  final TextEditingController controller;
+  final bool isNote, filled;
+  final bool obscureText;
+  final double? fontLabelSize;
+  final double? fontHintSize;
+  final Color cursorColor;
 
   final String? Function(String? value)? validator;
   final GestureTapCallback? onTap;
@@ -48,6 +61,7 @@ class CustomEdittext extends StatelessWidget {
 
   Widget buildTextField() {
     return TextFormField(
+      obscureText: obscureText,
       maxLines: maxLines,
       minLines: minLines,
       decoration: defaultDecoration(),
@@ -58,17 +72,22 @@ class CustomEdittext extends StatelessWidget {
       controller: controller,
       onChanged: onChanged,
       onFieldSubmitted: onFieldSubmitted,
+      cursorColor: Colors.black,
     );
   }
 
   InputDecoration defaultDecoration() {
     return InputDecoration(
-      contentPadding: EdgeInsets.all(50),
-      border: OutlineInputBorder(),
-      icon: Icon(Icons.short_text_sharp),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(30),
+        borderSide: BorderSide.none,
+      ),
       hintText: hint,
-      hintStyle: TextStyle(fontSize: 25),
-      label: Text(label, style: TextStyle(fontSize: 30)),
+      hintStyle: TextStyle(fontSize: fontHintSize),
+      label: label,
+      filled: filled,
+      fillColor: Colors.amber[100],
+      errorText: errorText,
     );
   }
 

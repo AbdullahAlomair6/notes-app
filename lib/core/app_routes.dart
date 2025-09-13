@@ -1,18 +1,43 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
+import 'package:notes_app/modules/home/view/home_screen.dart';
+import 'package:notes_app/modules/login/view/login_screen.dart';
+import 'package:notes_app/modules/login/view/signup_screen.dart';
 
-import '../layout/home_layout.dart';
-
-enum AppRouter { homeLayout }
+enum AppRouter { homeScreen, loginScreen, signupScreen }
 
 GoRouter goRouter() {
   return GoRouter(
-    initialLocation: '/homeLayout',
+    initialLocation: '/loginScreen',
     routes: <RouteBase>[
       GoRoute(
-        path: "/homeLayout",
-        name: AppRouter.homeLayout.name,
-        builder: (context, state) => HomeLayout(),
+        path: "/homeScreen",
+        name: AppRouter.homeScreen.name,
+        builder: (context, state) => const HomeScreen(),
+      ),
+      GoRoute(
+        path: "/loginScreen",
+        name: AppRouter.loginScreen.name,
+        builder: (context, state) => const LoginScreen(),
+      ),
+      GoRoute(
+        path: "/signupScreen",
+        name: AppRouter.signupScreen.name,
+        builder: (context, state) => const SignupScreen(),
       ),
     ],
+    redirect: (context, state) {
+      final user = FirebaseAuth.instance.currentUser;
+      final loggingIn =
+          state.matchedLocation == '/loginScreen' ||
+          state.matchedLocation == '/signupScreen';
+
+      if (user == null && !loggingIn) {
+        return '/loginScreen';
+      } else if (user != null && loggingIn) {
+        return '/homeScreen';
+      }
+      return null;
+    },
   );
 }
